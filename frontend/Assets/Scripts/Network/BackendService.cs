@@ -122,7 +122,7 @@ namespace CozyAR.Network
                     Sprite sprite = Sprite.Create(
                         texture, 
                         new Rect(0, 0, texture.width, texture.height), 
-                        new Vector2(0.5f, 0.5f), // Pivot center
+                        new Vector2(0.5f, 0f), // Bottom pivot: base of image aligns with floor plane!
                         ppu
                     );
 

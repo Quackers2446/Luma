@@ -149,7 +149,7 @@ namespace CozyAR.Editor
             GameObject spriteChild = GameObject.CreatePrimitive(PrimitiveType.Quad);
             spriteChild.name = "SpriteVisual";
             spriteChild.transform.SetParent(root.transform);
-            spriteChild.transform.localPosition = new Vector3(0, 0.5f, 0); // Pivot offset
+            spriteChild.transform.localPosition = Vector3.zero; // Pivot at bottom, aligned with parent pivot
             
             // Remove the mesh collider on the visual child
             DestroyImmediate(spriteChild.GetComponent<Collider>());

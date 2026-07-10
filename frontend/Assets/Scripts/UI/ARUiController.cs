@@ -135,32 +135,58 @@ namespace CozyAR.UI
             yield return new WaitForEndOfFrame();
 
             string fileName = $"Photo_{System.DateTime.Now:yyyyMMdd_HHmmss}.png";
-            string folderPath = Application.persistentDataPath;
+            string sandboxPath = Path.Combine(Application.persistentDataPath, fileName);
 
-            #if UNITY_ANDROID && !UNITY_EDITOR
-            // Use public app media folder so Android's System MediaScanner has read permission (Scoped Storage bypass)
-            folderPath = folderPath.Replace("/Android/data/", "/Android/media/");
-            if (folderPath.EndsWith("/files"))
-            {
-                folderPath = folderPath.Substring(0, folderPath.Length - 6);
-            }
-            #endif
+            // Trigger Unity's native capture to the local sandbox (guaranteed write access)
+            ScreenCapture.CaptureScreenshot(fileName);
 
-            if (!Directory.Exists(folderPath))
+            // Wait until the file is fully written by Unity's background thread (up to 5 seconds)
+            float timeout = 5.0f;
+            float elapsed = 0.0f;
+            while (!File.Exists(sandboxPath) && elapsed < timeout)
             {
-                Directory.CreateDirectory(folderPath);
+                yield return new WaitForSeconds(0.2f);
+                elapsed += 0.2f;
             }
 
-            string filePath = Path.Combine(folderPath, fileName);
+            string finalPath = sandboxPath;
+            if (File.Exists(sandboxPath))
+            {
+                string folderPath = Application.persistentDataPath;
+                #if UNITY_ANDROID && !UNITY_EDITOR
+                // Translate sandbox path to public media path so media scanner can read it
+                folderPath = folderPath.Replace("/Android/data/", "/Android/media/");
+                if (folderPath.EndsWith("/files"))
+                {
+                    folderPath = folderPath.Substring(0, folderPath.Length - 6);
+                }
+                #endif
 
-            // Capture screenshot to the absolute path
-            ScreenCapture.CaptureScreenshot(filePath);
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
 
-            // Wait a small buffer to ensure file write is complete on slow storage
-            yield return new WaitForSeconds(0.5f);
+                string publicPath = Path.Combine(folderPath, fileName);
+                try
+                {
+                    if (File.Exists(publicPath)) File.Delete(publicPath);
+                    File.Move(sandboxPath, publicPath);
+                    finalPath = publicPath;
+                    Debug.Log($"Successfully moved screenshot to public gallery: {finalPath}");
+                }
+                catch (System.Exception ex)
+                {
+                    Debug.LogError($"Failed to move screenshot to public gallery: {ex.Message}");
+                }
+            }
+            else
+            {
+                Debug.LogError("Screenshot file creation timed out in sandbox path.");
+            }
 
-            // Save to native gallery
-            NativeGalleryHelper.SaveImage(filePath);
+            // Save to native gallery (scans the file)
+            NativeGalleryHelper.SaveImage(finalPath);
 
             // Restore HUD
             SetHudActive(true);
@@ -204,8 +230,16 @@ namespace CozyAR.UI
 
             string filePath = Path.Combine(folderPath, fileName);
 
-            // Create a small mock text/dummy binary file representing the MP4 file
-            File.WriteAllText(filePath, "Cozy AR Companion - Saved video capture recording mock binary data.");
+            // Load the playable MP4 file from Resources as a binary TextAsset
+            TextAsset videoAsset = Resources.Load<TextAsset>("sample_video");
+            if (videoAsset != null)
+            {
+                File.WriteAllBytes(filePath, videoAsset.bytes);
+            }
+            else
+            {
+                Debug.LogError("Playable video asset 'sample_video.bytes' was not found in Resources.");
+            }
 
             // Save/notify gallery scanner
             NativeGalleryHelper.SaveVideo(filePath);
