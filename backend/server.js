@@ -12,6 +12,7 @@ app.use(express.json());
 
 // Serve static assets directly (fallback)
 app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use('/assets', express.static(path.join(__dirname, 'public', 'assets')));
 
 // Helper to construct fully qualified URLs dynamically
 const getFullUrl = (req, assetPath) => {
@@ -52,7 +53,7 @@ app.get('/characters/:id', async (req, res) => {
     
     const char = result.rows[0];
     
-    // Construct dynamic expression URLs inside the metadata JSON
+    // Construct dynamic expression and layer URLs inside the metadata JSON
     const metadata = { ...char.metadata };
     if (metadata.expressions) {
       const expressions = {};
@@ -60,6 +61,13 @@ app.get('/characters/:id', async (req, res) => {
         expressions[key] = getFullUrl(req, val);
       }
       metadata.expressions = expressions;
+    }
+    if (metadata.layers) {
+      const layers = {};
+      for (const [key, val] of Object.entries(metadata.layers)) {
+        layers[key] = getFullUrl(req, val);
+      }
+      metadata.layers = layers;
     }
     
     res.json({

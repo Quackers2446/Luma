@@ -55,43 +55,95 @@ async function init() {
     const seedData = [
       {
         name: 'Sprout',
-        thumbnail_url: '/assets/sprout_thumb.png',
-        image_url: '/assets/sprout_idle.png',
+        thumbnail_url: '/assets/sprout/head.png',
+        image_url: '/assets/sprout/body.png',
         metadata: {
           description: 'A cozy little leaf forest spirit who loves to sit on the grass and wave to passersby.',
-          expressions: {
-            idle: '/assets/sprout_idle.png',
-            happy: '/assets/sprout_happy.png',
-            sad: '/assets/sprout_sad.png',
-            wave: '/assets/sprout_wave.png'
+          config: {
+            idleBobAmplitude: 0.02,
+            idleBobSpeed: 1.1,
+            breathingScale: 0.015,
+            blinkIntervalMin: 2.5,
+            blinkIntervalMax: 6.0,
+            headRotationRange: 4.0,
+            hairSpring: 0.3,
+            hairDamping: 0.8
+          },
+          layers: {
+            body: '/assets/sprout/body.png',
+            head: '/assets/sprout/head.png',
+            left_arm: '/assets/sprout/left_arm.png',
+            right_arm: '/assets/sprout/right_arm.png',
+            hair: '/assets/sprout/hair.png',
+            eyes_open: '/assets/sprout/eyes_open.png',
+            eyes_closed: '/assets/sprout/eyes_closed.png',
+            mouth: '/assets/sprout/mouth.png',
+            mouth_happy: '/assets/sprout/mouth_happy.png',
+            mouth_sad: '/assets/sprout/mouth_sad.png',
+            shadow: '/assets/sprout/shadow.png'
           }
         }
       },
       {
         name: 'Nimbus',
-        thumbnail_url: '/assets/nimbus_thumb.png',
-        image_url: '/assets/nimbus_idle.png',
+        thumbnail_url: '/assets/nimbus/head.png',
+        image_url: '/assets/nimbus/body.png',
         metadata: {
           description: 'A fluffy cloud puppy that floats peacefully in the air, bringing gentle breezes.',
-          expressions: {
-            idle: '/assets/nimbus_idle.png',
-            happy: '/assets/nimbus_happy.png',
-            sad: '/assets/nimbus_sad.png',
-            wave: '/assets/nimbus_wave.png'
+          config: {
+            idleBobAmplitude: 0.04,
+            idleBobSpeed: 0.8,
+            breathingScale: 0.02,
+            blinkIntervalMin: 3.0,
+            blinkIntervalMax: 7.0,
+            headRotationRange: 3.0,
+            hairSpring: 0.25,
+            hairDamping: 0.85
+          },
+          layers: {
+            body: '/assets/nimbus/body.png',
+            head: '/assets/nimbus/head.png',
+            left_arm: '/assets/nimbus/left_arm.png',
+            right_arm: '/assets/nimbus/right_arm.png',
+            hair: '/assets/nimbus/hair.png',
+            eyes_open: '/assets/nimbus/eyes_open.png',
+            eyes_closed: '/assets/nimbus/eyes_closed.png',
+            mouth: '/assets/nimbus/mouth.png',
+            mouth_happy: '/assets/nimbus/mouth_happy.png',
+            mouth_sad: '/assets/nimbus/mouth_sad.png',
+            shadow: '/assets/nimbus/shadow.png'
           }
         }
       },
       {
         name: 'Mocha',
-        thumbnail_url: '/assets/mocha_thumb.png',
-        image_url: '/assets/mocha_idle.png',
+        thumbnail_url: '/assets/mocha/head.png',
+        image_url: '/assets/mocha/body.png',
         metadata: {
           description: 'A round, sleepy bear holding a tiny teacup, looking for a warm spot to rest.',
-          expressions: {
-            idle: '/assets/mocha_idle.png',
-            happy: '/assets/mocha_happy.png',
-            sad: '/assets/mocha_sad.png',
-            wave: '/assets/mocha_wave.png'
+          config: {
+            idleBobAmplitude: 0.015,
+            idleBobSpeed: 0.6,
+            breathingScale: 0.012,
+            blinkIntervalMin: 4.0,
+            blinkIntervalMax: 10.0,
+            headRotationRange: 2.0,
+            hairSpring: 0.4,
+            hairDamping: 0.75
+          },
+          layers: {
+            body: '/assets/mocha/body.png',
+            head: '/assets/mocha/head.png',
+            left_arm: '/assets/mocha/left_arm.png',
+            right_arm: '/assets/mocha/right_arm.png',
+            hair: '/assets/mocha/hair.png',
+            eyes_open: '/assets/mocha/eyes_open.png',
+            eyes_closed: '/assets/mocha/eyes_closed.png',
+            mouth: '/assets/mocha/mouth.png',
+            mouth_happy: '/assets/mocha/mouth_happy.png',
+            mouth_sad: '/assets/mocha/mouth_sad.png',
+            shadow: '/assets/mocha/shadow.png',
+            accessory: '/assets/mocha/accessory.png'
           }
         }
       }
