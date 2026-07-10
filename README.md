@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Luma: Cozy AR Companion 🌸✨
 
 **Luma** is a peaceful, magic-infused mobile AR companion app. Users can invite cute 2D illustrated characters (Sprout, Nimbus, and Mocha) into the real world using AR, move them around with natural gestures, change their expressions, and capture cozy photos or videos.
@@ -81,3 +82,21 @@ If you close the Unity Editor, you can compile and deploy directly from your Mac
 * **Asset Scaler**: [BackendService.cs](file:///Users/quackers/dev/Luma/frontend/Assets/Scripts/Network/BackendService.cs) (JSON list parser, texture cacher, dynamic 35cm PPU sizing calculator)
 * **Billboard Driver**: [CharacterBillboard.cs](file:///Users/quackers/dev/Luma/frontend/Assets/Scripts/AR/CharacterBillboard.cs) (camera-facing cylindrical transform constraints)
 * **Automated Builder**: [build_and_run.sh](file:///Users/quackers/dev/Luma/build_and_run.sh) (command-line batch build and install wrapper)
+=======
+# Luma
+
+## Overview
+
+### Game Flow
+
+Google Play Store / Apple Store App
+ - Install
+ - Make an Account
+ - Character Creation
+ - Create your own character
+
+Gameplay Loop??
+
+- Players have the ability to place their character through the camera onto a real life canvas (some sort of interaction)
+
+>>>>>>> 3d1dc1faac6cb6bd68385bc8af615f12c7ef75d0
